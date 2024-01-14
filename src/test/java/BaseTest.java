@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 
 import java.time.Duration;
+import java.util.UUID;
 
 public class BaseTest {
 
@@ -74,5 +75,9 @@ public class BaseTest {
     void checkLoggedIn() {
         WebElement avatarIcon = driver.findElement(By.cssSelector("img[class='avatar']"));
         Assert.assertTrue(avatarIcon.isDisplayed());
+    }
+
+    public String generateRandomName(){
+        return UUID.randomUUID().toString().replace("-", "");
     }
 }

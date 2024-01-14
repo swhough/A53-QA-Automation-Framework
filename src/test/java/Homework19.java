@@ -1,18 +1,16 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.lang.reflect.GenericDeclaration;
+import org.openqa.selenium.Keys;
 
 public class Homework19 extends BaseTest {
-
     @Test
     public void deletePlaylist() throws InterruptedException {
 
-
-        String expectedDeletedPlaylistMessageText = "Deleted playlist \"Playlist to Delete.\"";
-        String playlistName = "Playlist to Delete";
+        //This test creates and deletes a randomly-named playlist.
+        //It will only test deleting playlists that are empty of songs.
 
         //Login
         provideEmail("scott.hough@testpro.io");
@@ -21,19 +19,24 @@ public class Homework19 extends BaseTest {
         checkLoggedIn();
         Thread.sleep(2000);
 
-        choosePlaylistFromSidePanel("Playlist to Delete");
+        String playlistName = generateRandomName();
+        //String playlistName = "Playlist to Delete";
+        clickNewPlaylistPlusBtn();
+        Thread.sleep(2000);
+        clickNewPlaylistBtn();
+        Thread.sleep(2000);
+        provideNewPlaylistName(playlistName);
+        Thread.sleep(2000);
+
+        choosePlaylistFromSidePanel(playlistName);
         Thread.sleep(2000);
         clickDeletePlaylistBtn();
-        Thread.sleep(1000);
-
-        /*if (driver.findElement(By.cssSelector("button[class='ok']")).isDisplayed()) {
-            clickOkDeletePlaylistBtn();
-            Thread.sleep(2000);}*/
-
-        checkDeletedPlaylistSuccessMsg();
+        Thread.sleep(2000);
+        checkDeletedPlaylistSuccessMsg(playlistName);
+        Thread.sleep(2000);
 
         //Assert
-        Assert.assertEquals(checkDeletedPlaylistSuccessMsg(), expectedDeletedPlaylistMessageText);
+        checkDeletedPlaylistSuccessMsg(playlistName);
 
     }
 
@@ -54,10 +57,26 @@ public class Homework19 extends BaseTest {
         okDeleteButton.click();
     }
 
-    public String checkDeletedPlaylistSuccessMsg() {
-        WebElement notification = driver.findElement(By.cssSelector("div.success.show"));
-        return notification.getText();
+    public void checkDeletedPlaylistSuccessMsg(String playlistName) {
+        WebElement notificationMsg = driver.findElement(By.cssSelector("div.success.show"));
+        Assert.assertEquals("Deleted playlist \"" +playlistName+".\"",notificationMsg.getText());
     }
+    public void provideNewPlaylistName(String newName) {
+        WebElement profileNameField = driver.findElement(By.cssSelector("input[name='name']"));
+        profileNameField.clear();
+        profileNameField.sendKeys(newName);
+        //m.sendKeys("Java");
+        profileNameField.sendKeys(Keys.ENTER);
+    }
+    public void clickNewPlaylistPlusBtn() {
+        WebElement newPlaylistPlusBtn = driver.findElement(By.cssSelector("i[title='Create a new playlist']"));
+        newPlaylistPlusBtn.click();
+    }
+    public void clickNewPlaylistBtn() {
+        WebElement newPlaylistBtn = driver.findElement(By.cssSelector("li[data-testid=playlist-context-menu-create-simple]"));
+        newPlaylistBtn.click();
+    }
+
 }
 
 
