@@ -45,10 +45,10 @@ public class ProfileTest extends BaseTest {
         WebElement avatarIcon = driver.findElement(By.cssSelector("img.avatar"));
         avatarIcon.click();
     }
-
-    public String generateRandomName(){
+//Moved method to BaseTest
+    /*public String generateRandomName(){
         return UUID.randomUUID().toString().replace("-", "");
-    }
+    }*/
 
     public void provideCurrentPassword(String password){
         WebElement currentPasswordField = driver.findElement(By.cssSelector("[name='current_password']"));
