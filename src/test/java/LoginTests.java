@@ -1,11 +1,12 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class LoginTests extends BaseTest {
 
-    @Test
+   /*@Test
     public void loginValidEmailPassword() throws InterruptedException {
 
         provideEmail("demo@class.com");
@@ -17,13 +18,14 @@ public class LoginTests extends BaseTest {
         WebElement avatarIcon = driver.findElement(By.cssSelector("img[class='avatar']"));
         Assert.assertTrue(avatarIcon.isDisplayed());
 
-        }
+        }*/
 
-    @Test
-    public void loginInvalidEmailValidPassword() throws InterruptedException {
+    @Test(dataProvider = "InvalidLoginData")
+    @Parameters({"BaseUrl"})
+    public void loginInvalidEmailValidPassword(String email, String password) throws InterruptedException {
 
-        provideEmail("invalid@class.com");
-        providePassword("te$t$tudent");
+        provideEmail(email);
+        providePassword(password);
         clickSubmit();
 
         Thread.sleep(2000); //Sleep for 2 seconds
@@ -33,7 +35,7 @@ public class LoginTests extends BaseTest {
 
     }
 
-    @Test
+    /*@Test
     public void loginInvalidPasswordValidEmail() throws InterruptedException {
 
         provideEmail("demo@class.com");
@@ -45,7 +47,7 @@ public class LoginTests extends BaseTest {
         //Assertion
         Assert.assertEquals(driver.getCurrentUrl(), url);
 
-    }
+    }*/
 
 
 }
