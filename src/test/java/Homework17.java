@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -14,27 +15,21 @@ public class Homework17 extends BaseTest {
         provideEmail("scott.hough@testpro.io");
         providePassword("NoUnsafeChar2");
         clickSubmit();
-        Thread.sleep(2000);
 
         //Get to search bar and search
         provideSearchValue("Lament");
-        Thread.sleep(2000);
 
         //Click "View All"
         clickViewAll();
-        Thread.sleep(2000);
 
         //Click on first song in search results
         clickFirstSong();
-        Thread.sleep(2000);
 
         //Click on "ADD To..." button
         clickAddTo();
-        Thread.sleep(2000);
 
         //Choose playlist (Test Playlist)
         choosePlaylist();
-        Thread.sleep(2000);
 
         //Verify that a notification message appears and contains the text, "Added 1 song into {your playlist}".
         Assert.assertEquals(checkAddedToPlaylistSuccessMsg(), expectedAddedToPlaylistMessageText);
@@ -43,19 +38,19 @@ public class Homework17 extends BaseTest {
 
     //HELPER METHODS:
     public void provideSearchValue(String search) {
-        WebElement homeSearchField = driver.findElement(By.cssSelector("input[type=search]"));
+        WebElement homeSearchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[type=search]")));
         homeSearchField.clear();
         homeSearchField.sendKeys(search);
 
     }
 
     public void clickViewAll() {
-        WebElement viewAllButton = driver.findElement(By.cssSelector("button[data-test='view-all-songs-btn']"));
+        WebElement viewAllButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button[data-test='view-all-songs-btn']")));
         viewAllButton.click();
     }
 
     public void clickFirstSong() {
-        WebElement firstSongResult = driver.findElement(By.cssSelector("#songResultsWrapper .items tr:first-child"));
+        WebElement firstSongResult = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#songResultsWrapper .items tr:first-child")));
         firstSongResult.click();
     }
 
@@ -70,7 +65,7 @@ public class Homework17 extends BaseTest {
     }
 
     public String checkAddedToPlaylistSuccessMsg() {
-        WebElement notification = driver.findElement(By.cssSelector(".success.show"));
+        WebElement notification = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".success.show")));
         return notification.getText();
     }
 

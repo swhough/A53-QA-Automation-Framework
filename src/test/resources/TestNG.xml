@@ -8,9 +8,11 @@
             <class name="LoginTests"/>
             <class name="BaseTest"/>
             <class name="Homework19"/>
-            <!--class name="ProfileTest"/>
+            <class name="ProfileTest"/>
+            <class name="Homework18"/>
             <class name="Homework17"/>
-            <class name="Homework18"/>-->
+            <!--class name="ExampleSyntaxForNoteOrBlockedForm-Start"/>
+            <class name="ExampleSyntaxForNoteOrBlockedForm-End"/>-->
         </classes>
     </test>
 </suite>
