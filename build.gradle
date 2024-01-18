@@ -23,3 +23,18 @@ test {
         //suites "src/test/resources/Homework18.xml"
     }
 }
+
+//Another way to single out test suites:
+
+/*task testSmoke(type: Test){
+    useTestNG() {
+        suites "src/test/resources/Smoke.xml"
+    }
+}*/
+
+/*
+task testRegression(type: Test){
+    useTestNG() {
+        suites "src/test/resources/Regression.xml"
+    }
+}*/
