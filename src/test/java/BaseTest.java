@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -11,6 +12,8 @@ import org.testng.annotations.*;
 
 import java.time.Duration;
 import java.util.UUID;
+
+
 
 public class BaseTest {
 
@@ -30,6 +33,7 @@ public class BaseTest {
 
     public String url = "https://qa.koel.app/";
 
+    public Actions actions;
 
     @BeforeSuite
     static void setupClass() {
@@ -48,6 +52,7 @@ public class BaseTest {
         driver = new ChromeDriver(options);
         //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        actions = new Actions(driver);
         driver.manage().window().maximize();
         url = BaseUrl;
 
@@ -65,6 +70,12 @@ public class BaseTest {
 
     public void navigateToUrl(){
         driver.get(url);
+    }
+
+    public void loginToKoelApp() {
+        provideEmail("scott.hough@testpro.io");
+        providePassword("NoUnsafeChar2");
+        clickSubmit();
     }
 
     void provideEmail(String email) {
