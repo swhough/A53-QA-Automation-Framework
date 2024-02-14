@@ -2,18 +2,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.time.Duration;
-
 
 public class Homework21 extends BaseTest {
 
     String newPlaylistName = "Renamed Playlist";
     @Test
-    public void renamePlaylist() throws InterruptedException {
+    public void renamePlaylist() {
 
         String updatedPlaylistMsg = "Updated playlist \"Renamed Playlist.\"";
 
@@ -23,7 +19,6 @@ public class Homework21 extends BaseTest {
         doubleClickPlaylist();
         enterNewPlaylistName();
         Assert.assertEquals(getRenamePlaylistSuccessMsg(), updatedPlaylistMsg);
-
 
     }
 

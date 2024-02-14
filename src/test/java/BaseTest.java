@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -28,12 +29,14 @@ public class BaseTest {
         };
     }
 
-    public WebDriver driver;
-    public WebDriverWait wait;
+    public WebDriver driver = null;
+    public WebDriverWait wait = null;
+
+    public Wait<WebDriver> fluentWait;
 
     public String url = "https://qa.koel.app/";
 
-    public Actions actions;
+    public Actions actions = null;
 
     @BeforeSuite
     static void setupClass() {
@@ -79,8 +82,8 @@ public class BaseTest {
     }
 
     void provideEmail(String email) {
-        WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[type='email']")));
         //WebElement emailField = driver.findElement(By.cssSelector("input[type='email']"));
+        WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[type='email']")));
         emailField.clear();
         emailField.sendKeys(email);
     }
@@ -104,7 +107,7 @@ public class BaseTest {
         Assert.assertTrue(avatarIcon.isDisplayed());
     }
 
-    public String generateRandomName(){
+    public String generateRandomName() {
         return UUID.randomUUID().toString().replace("-", "");
     }
 }

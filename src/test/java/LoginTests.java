@@ -1,3 +1,5 @@
+import Pages.HomePage;
+import Pages.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -8,6 +10,13 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 
 public class LoginTests extends BaseTest {
+
+    /*This did not work for some reason. By putting the constructor methods up here, it caused a strange failure in the test below. The test
+    worked when I returned the these methods to the actual test text.*/
+
+    /*//Page Objects
+    LoginPage loginPage = new LoginPage(driver);
+    HomePage homePage = new HomePage(driver);*/
 
    @Test
     public void loginValidEmailPassword() throws InterruptedException {
@@ -47,6 +56,25 @@ public class LoginTests extends BaseTest {
 
         //Assertion
         Assert.assertEquals(driver.getCurrentUrl(), url);
+
+    }
+
+    /*
+    * Test Script using Page Object Model.
+    * Locators used in these tests were located using By abstract class.
+     */
+    @Test
+    public void loginWithCorrectCredentials(){
+
+        LoginPage loginPage = new LoginPage(driver);
+        HomePage homePage = new HomePage(driver);
+        loginPage.login();
+
+        /*loginPage.provideEmail("scott.hough@testpro.io");
+        loginPage.providePassword("NoUnsafeChar2");
+        loginPage.clickSubmit();*/
+
+        Assert.assertTrue(homePage.getUserAvatarIcon().isDisplayed());
 
     }
 
