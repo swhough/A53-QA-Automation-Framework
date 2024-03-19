@@ -1,5 +1,5 @@
-import Pages.HomePage;
-import Pages.LoginPage;
+import pages.HomePage;
+import pages.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,16 +14,17 @@ public class LoginTests extends BaseTest {
     /*This did not work for some reason. By putting the constructor methods up here, it caused a strange failure in the test below. The test
     worked when I returned the these methods to the actual test text.*/
 
-    /*//Page Objects
-    LoginPage loginPage = new LoginPage(driver);
-    HomePage homePage = new HomePage(driver);*/
+    //Page Objects
+    //LoginPage loginPage = new LoginPage(driver);
+    //HomePage homePage = new HomePage(driver);
 
    @Test
     public void loginValidEmailPassword() throws InterruptedException {
-
-        provideEmail("demo@class.com");
+       LoginPage loginPage = new LoginPage(driver);
+        /*provideEmail("demo@class.com");
         providePassword("te$t$tudent");
-        clickSubmit();
+        clickSubmit();*/
+       loginPage.login();
 
         //Assertion
         //WebElement avatarIcon = driver.findElement(By.cssSelector("img[class='avatar']"));
@@ -35,10 +36,12 @@ public class LoginTests extends BaseTest {
     @Test(dataProvider = "InvalidLoginData")
     @Parameters({"BaseUrl"})
     public void loginInvalidEmailValidPassword(String email, String password) throws InterruptedException {
+        LoginPage loginPage = new LoginPage(driver);
 
-        provideEmail(email);
-        providePassword(password);
-        clickSubmit();
+        loginPage.provideEmail(email);
+        loginPage.providePassword(password);
+        loginPage.clickSubmit();
+
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         //Assertion
@@ -48,10 +51,11 @@ public class LoginTests extends BaseTest {
 
     @Test
     public void loginInvalidPasswordValidEmail() throws InterruptedException {
+        LoginPage loginPage = new LoginPage(driver);
 
-        provideEmail("demo@class.com");
-        providePassword("invalidPassword");
-        clickSubmit();
+        loginPage.provideEmail("demo@class.com");
+        loginPage.providePassword("invalidPassword");
+        loginPage.clickSubmit();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         //Assertion
@@ -65,7 +69,6 @@ public class LoginTests extends BaseTest {
      */
     @Test
     public void loginWithCorrectCredentials(){
-
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
         loginPage.login();

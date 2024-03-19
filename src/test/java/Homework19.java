@@ -4,22 +4,30 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.openqa.selenium.Keys;
+import pages.BasePage;
+import pages.LoginPage;
 
 public class Homework19 extends BaseTest {
 
+    //BasePage basePage = new BasePage(driver);
+    //LoginPage loginPage = new LoginPage(driver);
+
     @Test
     public void deletePlaylist() {
-
+        BasePage basePage = new BasePage(driver);
+        LoginPage loginPage = new LoginPage(driver);
         //This test creates and deletes a randomly-named playlist.
         //It will only test deleting playlists that are empty of songs.
 
-        String playlistName = generateRandomName();
+        String playlistName = basePage.generateRandomName();
 
         //Login
-        provideEmail("scott.hough@testpro.io");
+        /*provideEmail("scott.hough@testpro.io");
         providePassword("NoUnsafeChar2");
         clickSubmit();
-        checkLoggedIn();
+        checkLoggedIn();*/
+
+        loginPage.login();
 
         clickNewPlaylistPlusBtn();
         clickNewPlaylistBtn();

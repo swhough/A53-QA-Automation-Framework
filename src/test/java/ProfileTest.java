@@ -3,22 +3,29 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.BasePage;
+import pages.LoginPage;
 
 public class ProfileTest extends BaseTest {
 
+    //BasePage basePage = new BasePage(driver);
+    //LoginPage loginPage = new LoginPage(driver);
+
     @Test
     public void changeProfileName() {
+        BasePage basePage = new BasePage(driver);
+        LoginPage loginPage = new LoginPage(driver);
 
         //Login
-        provideEmail("demo@class.com");
-        providePassword("te$t$tudent");
-        clickSubmit();
+        loginPage.provideEmail("demo@class.com");
+        loginPage.providePassword("te$t$tudent");
+        loginPage.clickSubmit();
 
         //Navigate to Profile Page
         clickOnAvatar();
 
         //Random new Name
-        String randomNewName = generateRandomName();
+        String randomNewName = basePage.generateRandomName();
 
         //Provide Current Password
         provideCurrentPassword("te$t$tudent");

@@ -31,11 +31,8 @@ public class BaseTest {
 
     public WebDriver driver = null;
     public WebDriverWait wait = null;
-
     public Wait<WebDriver> fluentWait;
-
     public String url = "https://qa.koel.app/";
-
     public Actions actions = null;
 
     @BeforeSuite
@@ -75,39 +72,4 @@ public class BaseTest {
         driver.get(url);
     }
 
-    public void loginToKoelApp() {
-        provideEmail("scott.hough@testpro.io");
-        providePassword("NoUnsafeChar2");
-        clickSubmit();
-    }
-
-    void provideEmail(String email) {
-        //WebElement emailField = driver.findElement(By.cssSelector("input[type='email']"));
-        WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[type='email']")));
-        emailField.clear();
-        emailField.sendKeys(email);
-    }
-
-    void providePassword(String password) {
-        //WebElement passwordField = driver.findElement(By.cssSelector("input[type='password']"));
-        WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[type='password']")));
-        passwordField.clear();
-        passwordField.sendKeys(password);
-    }
-
-    void clickSubmit() {
-        //WebElement submitButton = driver.findElement(By.cssSelector("button[type='submit']"));
-        WebElement submitButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button[type='submit']")));
-        submitButton.click();
-    }
-
-    void checkLoggedIn() {
-        //WebElement avatarIcon = driver.findElement(By.cssSelector("img[class='avatar']"));
-        WebElement avatarIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("img[class='avatar']")));
-        Assert.assertTrue(avatarIcon.isDisplayed());
-    }
-
-    public String generateRandomName() {
-        return UUID.randomUUID().toString().replace("-", "");
-    }
 }

@@ -1,4 +1,4 @@
-package Pages;
+package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,12 +8,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.UUID;
 
 public class BasePage {
 
-    WebDriver driver;
-    WebDriverWait wait;
-    Actions actions;
+    protected WebDriver driver;
+    protected WebDriverWait wait;
+    protected Actions actions;
 
     public BasePage(WebDriver givenDriver) {
         driver = givenDriver;
@@ -21,8 +22,18 @@ public class BasePage {
         actions = new Actions(driver);
     }
 
-    public WebElement findElementUsingByLocator(By locator) {
+    //Helper Methods
+    public WebElement findElement(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
+    public void click (By locator) {
+        findElement(locator).click();
+    }
+    public void doubleClick (By locator) {
+        actions.doubleClick(findElement(locator)).perform();
+    }
 
+    public String generateRandomName() {
+        return UUID.randomUUID().toString().replace("-", "");
+    }
 }

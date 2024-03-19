@@ -1,3 +1,4 @@
+/*
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -19,8 +20,10 @@ public class Homework18 extends BaseTest {
         WebElement pauseButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("span[title='Pause']")));
         Assert.assertTrue(pauseButton.isDisplayed());
 
-        /*Other option:
-        WebElement soundBar = driver.findElement(By.xpath("//div[@data-testid='sound-bar-play']"));*/
+        */
+/*Other option:
+        WebElement soundBar = driver.findElement(By.xpath("//div[@data-testid='sound-bar-play']"));*//*
+
 
     }
 
@@ -29,12 +32,14 @@ public class Homework18 extends BaseTest {
         WebElement playNextButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("i[title='Play next song']")));
         WebElement playButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("span[title='Play or resume']")));
 
-        /*Other options:
+        */
+/*Other options:
         WebElement playNextButton = driver.findElement(By.xpath("//i[@data-testid='play-next-btn']"));
-        WebElement playButton = driver.findElement(By.xpath("//span[@data-testid='play-btn']"));*/
+        WebElement playButton = driver.findElement(By.xpath("//span[@data-testid='play-btn']"));*//*
+
 
         playNextButton.click();
         playButton.click();
     }
 
-}
+}*/

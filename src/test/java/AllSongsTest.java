@@ -3,6 +3,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.LoginPage;
 
 import java.util.List;
 
@@ -10,9 +11,13 @@ public class AllSongsTest extends BaseTest {
 
     @Test
     public void playSongByContextClick() throws InterruptedException {
-        provideEmail("scott.hough@testpro.io");
+
+        LoginPage loginPage = new LoginPage(driver);
+
+        /*provideEmail("scott.hough@testpro.io");
         providePassword("NoUnsafeChar2");
-        clickSubmit();
+        clickSubmit();*/
+        loginPage.login();
         chooseAllSongsList();
         contextClickFirstSong();
         choosePlayOption();
@@ -20,10 +25,11 @@ public class AllSongsTest extends BaseTest {
         Assert.assertTrue(isSongPlaying());
         }
 
-
     @Test
     public void hoverOverPlayBtn() throws InterruptedException {
-        loginToKoelApp();
+        LoginPage loginPage = new LoginPage(driver);
+        //loginToKoelApp();
+        loginPage.login();
         Thread.sleep(2000);
         //Assertions
         Assert.assertTrue(hoverPlay().isDisplayed());
@@ -31,7 +37,11 @@ public class AllSongsTest extends BaseTest {
 
     @Test
     public void countSongsInPlaylist() throws InterruptedException{
-        loginToKoelApp();
+        LoginPage loginPage = new LoginPage(driver);
+
+        loginPage.login();
+        //loginPage.login();
+        //Must have this playlist already created:
         choosePlaylistByName("Playlist to count songs");
         displayAllSongs();
         Thread.sleep(2000);
