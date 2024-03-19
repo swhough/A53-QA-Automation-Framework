@@ -12,7 +12,7 @@ repositories {
 dependencies {
     testImplementation 'org.testng:testng:7.6.1'
     implementation 'org.seleniumhq.selenium:selenium-java:4.5.0'
-    testImplementation 'io.github.bonigarcia:webdrivermanager:5.4.1'
+    testImplementation 'io.github.bonigarcia:webdrivermanager:5.6.3'
 }
 
 test {
@@ -23,3 +23,18 @@ test {
         //suites "src/test/resources/Homework18.xml"
     }
 }
+
+//Another way to single out test suites:
+
+/*task testSmoke(type: Test){
+    useTestNG() {
+        suites "src/test/resources/Smoke.xml"
+    }
+}*/
+
+/*
+task testRegression(type: Test){
+    useTestNG() {
+        suites "src/test/resources/Regression.xml"
+    }
+}*/

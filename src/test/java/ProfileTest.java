@@ -1,26 +1,31 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.util.UUID;
+import pages.BasePage;
+import pages.LoginPage;
 
 public class ProfileTest extends BaseTest {
 
+    //BasePage basePage = new BasePage(driver);
+    //LoginPage loginPage = new LoginPage(driver);
+
     @Test
-    public void changeProfileName() throws InterruptedException {
+    public void changeProfileName() {
+        BasePage basePage = new BasePage(driver);
+        LoginPage loginPage = new LoginPage(driver);
 
         //Login
-        provideEmail("demo@class.com");
-        providePassword("te$t$tudent");
-        clickSubmit();
-        Thread.sleep(2000);
+        loginPage.provideEmail("demo@class.com");
+        loginPage.providePassword("te$t$tudent");
+        loginPage.clickSubmit();
 
         //Navigate to Profile Page
         clickOnAvatar();
 
         //Random new Name
-        String randomNewName = generateRandomName();
+        String randomNewName = basePage.generateRandomName();
 
         //Provide Current Password
         provideCurrentPassword("te$t$tudent");
@@ -30,10 +35,9 @@ public class ProfileTest extends BaseTest {
 
         //Click on Save Button
         clickSave();
-        Thread.sleep(2000);
 
         //Assertion
-        WebElement actualProfileName = driver.findElement(By.cssSelector("a.view-profile>span"));
+        WebElement actualProfileName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(), '"+randomNewName+"')]")));
         Assert.assertEquals(actualProfileName.getText(), randomNewName);
 
     }
@@ -42,28 +46,24 @@ public class ProfileTest extends BaseTest {
 
     //Navigate to Profile Page
     public void clickOnAvatar(){
-        WebElement avatarIcon = driver.findElement(By.cssSelector("img.avatar"));
+        WebElement avatarIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("img.avatar")));
         avatarIcon.click();
     }
-//Moved method to BaseTest
-    /*public String generateRandomName(){
-        return UUID.randomUUID().toString().replace("-", "");
-    }*/
 
     public void provideCurrentPassword(String password){
-        WebElement currentPasswordField = driver.findElement(By.cssSelector("[name='current_password']"));
+        WebElement currentPasswordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[name='current_password']")));
         currentPasswordField.clear();
         currentPasswordField.sendKeys(password);
     }
 
     public void provideNewName(String newName){
-        WebElement profileNameField = driver.findElement(By.cssSelector("[name='name']"));
+        WebElement profileNameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[name='name']")));
         profileNameField.clear();
         profileNameField.sendKeys(newName);
     }
 
     public void clickSave(){
-        WebElement saveButton = driver.findElement(By.cssSelector("button.btn-submit"));
+        WebElement saveButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button.btn-submit")));
         saveButton.click();
     }
 }
